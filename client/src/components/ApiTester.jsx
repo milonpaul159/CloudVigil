@@ -4,13 +4,13 @@ import { testUrl, testSpec } from '../services/api';
 const METHODS = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD'];
 
 const METHOD_COLORS = {
-  GET: '#38bdf8',
-  POST: '#34d399',
-  PUT: '#fbbf24',
-  DELETE: '#f87171',
-  PATCH: '#a78bfa',
-  HEAD: '#64748b',
-  OPTIONS: '#64748b',
+  GET: '#00ff41',
+  POST: '#39ff14',
+  PUT: '#ccff00',
+  DELETE: '#ff3131',
+  PATCH: '#00e676',
+  HEAD: '#3a6b4a',
+  OPTIONS: '#3a6b4a',
 };
 
 /**
@@ -257,7 +257,7 @@ function SpecTester() {
                     </span>
                   </td>
                   <td className="url-cell" title={r.path}>{r.path}</td>
-                  <td style={{ fontSize: '0.8rem', color: '#94a3b8' }}>{r.name}</td>
+                  <td style={{ fontSize: '0.8rem', color: '#7dcea0' }}>{r.name}</td>
                   <td>
                     <span className={`status-code ${r.isSuccess ? 'success' : 'error'}`}>
                       {r.statusCode || 'ERR'}

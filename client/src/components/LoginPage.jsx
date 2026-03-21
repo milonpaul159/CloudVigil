@@ -54,8 +54,8 @@ export default function LoginPage({ onLogin }) {
       <div className="login-container">
         <div className="glass-card login-card">
           <div className="login-logo">
-            <h1>☁️ CloudVigil</h1>
-            <p>API Monitoring & Analytics Dashboard</p>
+            <h1>🛡️ CloudVigil</h1>
+            <p>[ Secure API Monitoring Terminal ]</p>
           </div>
 
           {error && <div className="login-error">{error}</div>}

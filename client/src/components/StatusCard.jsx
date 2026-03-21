@@ -1,7 +1,8 @@
 /**
  * StatusCard — Individual endpoint status with pulse animation and metrics.
+ * Clicking the card opens the endpoint detail modal.
  */
-export default function StatusCard({ endpoint }) {
+export default function StatusCard({ endpoint, onClick }) {
   const { name, url, uptimePercent, avgLatencyMs, latestStatus, totalPings } = endpoint;
 
   // Determine status tier
@@ -22,7 +23,11 @@ export default function StatusCard({ endpoint }) {
   };
 
   return (
-    <div className={`glass-card status-card ${status}`}>
+    <div
+      className={`glass-card status-card ${status}`}
+      onClick={onClick}
+      style={{ cursor: 'pointer' }}
+    >
       <div className="status-card-header">
         <div>
           <div className="status-card-name">{name}</div>

@@ -9,6 +9,7 @@ import LatencyChart from './components/LatencyChart';
 import PingHistory from './components/PingHistory';
 import TrafficDashboard from './components/TrafficDashboard';
 import ApiTester from './components/ApiTester';
+import EndpointModal from './components/EndpointModal';
 
 export default function App() {
   const [user, setUser] = useState(isAuthenticated() ? getUser() : null);
@@ -46,6 +47,7 @@ export default function App() {
 function Dashboard({ user, onLogout }) {
   const fetchFn = useCallback(() => fetchAnalytics(24), []);
   const { data, error, loading, refresh } = usePolling(fetchFn, 15000);
+  const [selectedEndpoint, setSelectedEndpoint] = useState(null);
 
   const analytics = data?.analytics || [];
 
@@ -65,7 +67,7 @@ function Dashboard({ user, onLogout }) {
       {/* ── Header ─────────────────────────────────────────── */}
       <header className="app-header">
         <div className="logo">
-          <h1>☁️ CloudVigil</h1>
+          <h1>🛡️ CloudVigil</h1>
           <span className="version-badge">v1.0</span>
         </div>
 
@@ -77,7 +79,7 @@ function Dashboard({ user, onLogout }) {
           <button
             className="logout-btn"
             onClick={handleTriggerPing}
-            style={{ color: 'var(--accent-blue)', borderColor: 'rgba(56,189,248,0.3)' }}
+            style={{ color: '#00ff41', borderColor: 'rgba(0,255,65,0.3)' }}
           >
             🔄 Ping Now
           </button>
@@ -121,6 +123,7 @@ function Dashboard({ user, onLogout }) {
                 <StatusCard
                   key={ep.url}
                   endpoint={ep}
+                  onClick={() => setSelectedEndpoint(ep)}
                 />
               ))}
             </div>
@@ -139,6 +142,14 @@ function Dashboard({ user, onLogout }) {
           </>
         )}
       </main>
+
+      {/* Endpoint Detail Modal */}
+      {selectedEndpoint && (
+        <EndpointModal
+          endpoint={selectedEndpoint}
+          onClose={() => setSelectedEndpoint(null)}
+        />
+      )}
     </div>
   );
 }
