@@ -109,37 +109,41 @@ const startServer = async () => {
     await connectDB();
 
     // ── 2. Seed initial users + sample data ───────────────────
-    await seedUsers();
-    await seedDatabase();
-
-    // ── 3. Start Express listener ─────────────────────────────
-    app.listen(PORT, () => {
-      console.log(`\n🚀 CloudVigil server running on http://localhost:${PORT}`);
-      console.log(`   📊 Health check:  GET  /api/health`);
-      console.log(`   🔐 Login:         POST /api/auth/login`);
-      console.log(`   📝 Register:      POST /api/auth/register`);
-      console.log(`   🎯 Targets:       POST /api/targets`);
-      console.log(`   📈 Analytics:     GET  /api/analytics`);
-      console.log(`   🚦 Traffic:       GET  /api/traffic`);
-      console.log(`   🔄 Manual ping:   POST /api/pings/trigger\n`);
-    });
-
-    // ── 4. Schedule the pinger engine ─────────────────────────
-    const cronExpression = process.env.PING_CRON || '*/30 * * * * *';
-    cron.schedule(cronExpression, async () => {
-      console.log(`⏰ [${new Date().toISOString()}] Scheduled ping cycle starting...`);
-      try {
-        await runPingCycle();
-      } catch (err) {
-        console.error('❌ Scheduled ping cycle error:', err.message);
-      }
-    });
-
-    console.log(`⏰ Pinger scheduled with cron: "${cronExpression}"`);
-  } catch (err) {
-    console.error('💀 Failed to start server:', err.message);
-    process.exit(1);
+    try {
+      await seedUsers();
+      await seedDatabase();
+    } catch (seedErr) {
+      console.warn('⚠️  Seeding skipped (DB may be unavailable):', seedErr.message);
+    }
+  } catch (dbErr) {
+    console.warn('⚠️  Database setup failed:', dbErr.message);
+    console.warn('   Server will start without database functionality.');
   }
+
+  // ── 3. Start Express listener (always) ───────────────────
+  app.listen(PORT, () => {
+    console.log(`\n🚀 CloudVigil server running on http://localhost:${PORT}`);
+    console.log(`   📊 Health check:  GET  /api/health`);
+    console.log(`   🔐 Login:         POST /api/auth/login`);
+    console.log(`   📝 Register:      POST /api/auth/register`);
+    console.log(`   🎯 Targets:       POST /api/targets`);
+    console.log(`   📈 Analytics:     GET  /api/analytics`);
+    console.log(`   🚦 Traffic:       GET  /api/traffic`);
+    console.log(`   🔄 Manual ping:   POST /api/pings/trigger\n`);
+  });
+
+  // ── 4. Schedule the pinger engine ─────────────────────────
+  const cronExpression = process.env.PING_CRON || '*/30 * * * * *';
+  cron.schedule(cronExpression, async () => {
+    console.log(`⏰ [${new Date().toISOString()}] Scheduled ping cycle starting...`);
+    try {
+      await runPingCycle();
+    } catch (err) {
+      console.error('❌ Scheduled ping cycle error:', err.message);
+    }
+  });
+
+  console.log(`⏰ Pinger scheduled with cron: "${cronExpression}"`);
 };
 
 startServer();

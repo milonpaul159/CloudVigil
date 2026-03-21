@@ -13,5 +13,9 @@
     "concurrently": "^8.2.2"
   },
   "author": "CloudVigil Team",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "mongod": "^2.0.0",
+    "mongoose": "^9.3.1"
+  }
 }

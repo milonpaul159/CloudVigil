@@ -12,12 +12,14 @@ const mongoose = require('mongoose');
  * Retries up to 5 times with a 5-second delay between attempts.
  */
 const connectDB = async () => {
-  const MAX_RETRIES = 5;
-  const RETRY_DELAY_MS = 5000;
+  const MAX_RETRIES = 1;
+  const RETRY_DELAY_MS = 2000;
 
   for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
     try {
-      const conn = await mongoose.connect(process.env.MONGO_URI);
+      const conn = await mongoose.connect(process.env.MONGO_URI, {
+        serverSelectionTimeoutMS: 3000, // Fail fast if DB is unreachable
+      });
       console.log(`✅ MongoDB connected: ${conn.connection.host}`);
 
       // ── Connection event listeners ──────────────────────────
@@ -36,8 +38,9 @@ const connectDB = async () => {
       );
 
       if (attempt === MAX_RETRIES) {
-        console.error('💀 All MongoDB connection attempts exhausted. Exiting.');
-        process.exit(1);
+        console.error('⚠️  All MongoDB connection attempts exhausted. Server will continue without DB.');
+        console.error('   Install MongoDB locally or set MONGO_URI to a MongoDB Atlas cluster in .env');
+        return;
       }
 
       console.log(`⏳ Retrying in ${RETRY_DELAY_MS / 1000}s...`);

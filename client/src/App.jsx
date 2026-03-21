@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react';
+import MatrixBackground from './components/MatrixBackground';
 import { isAuthenticated, getUser, logout, fetchAnalytics, triggerPing } from './services/api';
 import { usePolling } from './hooks/usePolling';
 import LoginPage from './components/LoginPage';
@@ -23,10 +24,20 @@ export default function App() {
 
   // If not authenticated, show login screen
   if (!user) {
-    return <LoginPage onLogin={handleLogin} />;
+    return (
+      <>
+        <MatrixBackground />
+        <LoginPage onLogin={handleLogin} />
+      </>
+    );
   }
 
-  return <Dashboard user={user} onLogout={handleLogout} />;
+  return (
+    <>
+      <MatrixBackground />
+      <Dashboard user={user} onLogout={handleLogout} />
+    </>
+  );
 }
 
 /**
