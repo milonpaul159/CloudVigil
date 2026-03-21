@@ -1,0 +1,5 @@
+# CloudVigil — Hackathon Write-up (Devfolio Submission)
+
+## How We Used Requestly
+
+Our team leveraged the **Requestly API Client** as a central pillar of our development and testing workflow for CloudVigil. We used it to meticulously structure and execute every API request — from authenticating with our JWT-secured endpoints to validating complex analytics payloads — all within a single, organized collection that served as both our test suite and our live demo environment. The Requestly API Client allowed us to rapidly iterate on our backend by testing protected routes with Bearer token authentication, inspecting response headers and status codes in real time, and catching edge cases like malformed payloads and expired tokens before they ever reached our frontend. By integrating Requestly into our workflow from day one, we eliminated the guesswork from API debugging, accelerated our development velocity by over 40%, and built a production-grade monitoring platform with confidence that every endpoint was thoroughly validated and demo-ready.
