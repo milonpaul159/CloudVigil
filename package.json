@@ -3,21 +3,20 @@
   "version": "1.0.0",
   "description": "CloudVigil — Cloud-native API Monitoring & Analytics Dashboard",
   "private": true,
+  "workspaces": [
+    "server",
+    "client"
+  ],
   "scripts": {
     "dev": "concurrently --names SERVER,CLIENT --prefix-colors blue,magenta \"npm run server\" \"npm run client\"",
-    "server": "cd server && npm run dev",
-    "client": "cd client && npm run dev",
-    "install:all": "cd server && npm install && cd ../client && npm install",
-    "build": "cd server && npm install && cd ../client && npm install && npm run build",
-    "start": "cd server && node src/index.js"
+    "server": "npm run dev --workspace=server",
+    "client": "npm run dev --workspace=client",
+    "build": "npm run build --workspace=client",
+    "start": "node server/src/index.js"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"
   },
   "author": "CloudVigil Team",
-  "license": "MIT",
-  "dependencies": {
-    "mongod": "^2.0.0",
-    "mongoose": "^9.3.1"
-  }
+  "license": "MIT"
 }

@@ -3,7 +3,7 @@
  * Handles all HTTP communication with the Express backend.
  */
 
-const API_BASE = 'http://localhost:5000/api';
+const API_BASE = '/api';
 
 /**
  * Get stored JWT token from localStorage.
