@@ -7,9 +7,12 @@
     "server",
     "client"
   ],
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "dev": "node server/src/index.js",
-    "build": "cd client && npm install && npm run build",
+    "build": "npm install --workspaces && cd client && npm run build",
     "start": "node server/src/index.js"
   },
   "dependencies": {

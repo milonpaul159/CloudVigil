@@ -11,8 +11,8 @@
   /* Background */
   --bg-primary: #050810;
   --bg-secondary: #0a0f1a;
-  --bg-card: rgba(5, 15, 10, 0.75);
-  --bg-card-hover: rgba(5, 20, 12, 0.9);
+  --bg-card: rgba(5, 15, 10, 0.95);
+  --bg-card-hover: rgba(5, 20, 12, 0.98);
   --bg-glass: rgba(0, 255, 65, 0.03);
   --bg-glass-hover: rgba(0, 255, 65, 0.06);
   --bg-input: rgba(0, 255, 65, 0.05);
@@ -108,7 +108,7 @@ body::after {
     transparent 3px
   );
   pointer-events: none;
-  z-index: 9999;
+  z-index: 0;
 }
 
 #root {
@@ -210,6 +210,8 @@ body::after {
   justify-content: center;
   min-height: 100vh;
   padding: 2rem;
+  position: relative;
+  z-index: 2;
 }
 
 .login-container {
@@ -220,6 +222,11 @@ body::after {
 
 .login-card {
   padding: 2.5rem;
+  background: rgba(2, 8, 5, 0.95);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(0, 255, 65, 0.15);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.6), 0 0 80px rgba(0, 255, 65, 0.05);
 }
 
 .login-logo {
@@ -348,6 +355,9 @@ body::after {
 /* ── App Layout ────────────────────────────────────────────── */
 .app-layout {
   min-height: 100vh;
+  position: relative;
+  z-index: 2;
+  background: rgba(2, 4, 8, 0.55);
 }
 
 .app-header {
@@ -355,7 +365,7 @@ body::after {
   align-items: center;
   justify-content: space-between;
   padding: 1rem 2rem;
-  background: rgba(2, 4, 8, 0.85);
+  background: rgba(2, 4, 8, 0.95);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(0, 255, 65, 0.1);
   position: sticky;

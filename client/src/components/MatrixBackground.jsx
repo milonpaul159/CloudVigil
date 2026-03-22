@@ -39,7 +39,7 @@ export default function MatrixBackground() {
 
     // Random brightness per column for depth effect
     const brightness = Array.from({ length: columns }, () =>
-      0.15 + Math.random() * 0.45
+      0.15 + Math.random() * 1
     );
 
     const draw = () => {
@@ -94,7 +94,7 @@ export default function MatrixBackground() {
         left: 0,
         width: '100vw',
         height: '100vh',
-        zIndex: 0,
+        zIndex: -1,
         pointerEvents: 'none',
       }}
     />

@@ -7,10 +7,10 @@
  */
 
 // ── Load environment variables FIRST ──────────────────────────
-require('dotenv').config();
+const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, '..', '.env') });
 
 const express = require('express');
-const path = require('path');
 const cors = require('cors');
 const cron = require('node-cron');
 
@@ -33,7 +33,10 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // ── Middleware ─────────────────────────────────────────────────
-app.use(cors()); // Allow all origins (for hackathon dev)
+app.use(cors({
+  origin: process.env.CORS_ORIGIN || '*',
+  credentials: true,
+})); // Use CORS_ORIGIN in production, allow all in dev
 app.use(express.json({ limit: '5mb' })); // Parse JSON, allow big spec files
 app.use(express.urlencoded({ extended: true }));
 
