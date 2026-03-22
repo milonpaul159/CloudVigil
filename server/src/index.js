@@ -10,6 +10,7 @@
 require('dotenv').config();
 
 const express = require('express');
+const path = require('path');
 const cors = require('cors');
 const cron = require('node-cron');
 
@@ -83,7 +84,17 @@ app.post('/api/pings/trigger', verifyToken, async (req, res) => {
   }
 });
 
-// ── 404 handler ───────────────────────────────────────────────
+// ── Serve React client in production ──────────────────────────
+const clientBuildPath = path.join(__dirname, '..', '..', 'client', 'dist');
+app.use(express.static(clientBuildPath));
+
+// SPA fallback — serve index.html for any non-API route
+app.get('*', (req, res, next) => {
+  if (req.path.startsWith('/api')) return next();
+  res.sendFile(path.join(clientBuildPath, 'index.html'));
+});
+
+// ── 404 handler (API routes only) ─────────────────────────────
 app.use((req, res) => {
   res.status(404).json({
     success: false,
