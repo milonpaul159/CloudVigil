@@ -8,14 +8,25 @@
     "client"
   ],
   "scripts": {
-    "dev": "concurrently --names SERVER,CLIENT --prefix-colors blue,magenta \"npm run server\" \"npm run client\"",
-    "server": "npm run dev --workspace=server",
-    "client": "npm run dev --workspace=client",
+    "dev": "node server/src/index.js",
     "build": "npm run build --workspace=client",
     "start": "node server/src/index.js"
   },
-  "devDependencies": {
+  "dependencies": {
+    "axios": "^1.7.2",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.4.1",
+    "node-cron": "^3.0.3",
+    "path": "^0.12.7",
     "concurrently": "^8.2.2"
+  },
+  "devDependencies": {
+    "vite": "^8.0.1",
+    "@vitejs/plugin-react": "^6.0.1"
   },
   "author": "CloudVigil Team",
   "license": "MIT"
